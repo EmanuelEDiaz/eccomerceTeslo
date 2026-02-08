@@ -1,4 +1,5 @@
 import { SidebarInterface } from "@/interfaces/sidebar.interfaces";
+import { IoLogInOutline, IoLogOutOutline, IoPersonOutline, IoTicketOutline } from "react-icons/io5";
 
 interface SidebarData {
     dates:SidebarInterface[];
@@ -7,8 +8,24 @@ interface SidebarData {
 export const sideData: SidebarData = {
     dates:[
         {
-            name:'',
-            url:''
+            icon: IoPersonOutline,
+            name:'Perfil',
+            url:'/'
+        },
+        {
+            icon: IoTicketOutline,
+            name:'Ordenes',
+            url:'/'
+        },
+        {
+            icon: IoLogInOutline,
+            name:'Ingresar',
+            url:'/'
+        },
+        {
+            icon: IoLogOutOutline,
+            name:'Salir',
+            url:'/'
         },
     ]
 }

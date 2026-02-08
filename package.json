@@ -9,10 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "clsx": "file:clsx-2.1.1.tgz",
     "next": "^16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "zustand": "file:zustand-5.0.11.tgz"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
