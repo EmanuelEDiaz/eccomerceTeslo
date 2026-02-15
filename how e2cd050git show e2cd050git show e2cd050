@@ -1,0 +1,641 @@
+[33mcommit e2cd050546c289719d2597dae83f4f6729db6f80[m
+Author: Emanuel <eexpositod@gmail.com>
+Date:   Fri Feb 13 17:47:54 2026 -0500
+
+    sidebar hecho con map
+
+[1mdiff --git a/app/(shop)/category/[id]/page.tsx b/app/(shop)/category/[id]/page.tsx[m
+[1mindex 9ea4689..d3b208c 100644[m
+[1m--- a/app/(shop)/category/[id]/page.tsx[m
+[1m+++ b/app/(shop)/category/[id]/page.tsx[m
+[36m@@ -1,19 +1,19 @@[m
+[31m-[m
+[31m-import { notFound } from "next/navigation";[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-export default async function Category({params}:{params : Promise<{ id : string }>}) {[m
+[31m-  const { id } = await params;[m
+[31m-  if( id === 'kids'){[m
+[31m-    notFound();[m
+[31m-  }[m
+[31m-[m
+[31m-  return ([m
+[31m-    [m
+[31m-      <div className="">[m
+[31m-        <h1> Category: {id}</h1>[m
+[31m-      </div>[m
+[31m-    [m
+[31m-  );[m
+[31m-}[m
+[32m+[m[41m[m
+[32m+[m[32mimport { notFound } from "next/navigation";[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mexport default async function Category({params}:{params : Promise<{ id : string }>}) {[m[41m[m
+[32m+[m[32m  const { id } = await params;[m[41m[m
+[32m+[m[32m  if( id === 'kids'){[m[41m[m
+[32m+[m[32m    notFound();[m[41m[m
+[32m+[m[32m  }[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m  return ([m[41m[m
+[32m+[m[41m    [m
+[32m+[m[32m      <div className="">[m[41m[m
+[32m+[m[32m        <h1> Category: {id}</h1>[m[41m[m
+[32m+[m[32m      </div>[m[41m[m
+[32m+[m[41m    [m
+[32m+[m[32m  );[m[41m[m
+[32m+[m[32m}[m[41m[m
+[1mdiff --git a/app/(shop)/category/not-found.tsx b/app/(shop)/category/not-found.tsx[m
+[1mindex 9ec1a91..e3b2e8d 100644[m
+[1m--- a/app/(shop)/category/not-found.tsx[m
+[1m+++ b/app/(shop)/category/not-found.tsx[m
+[36m@@ -1,10 +1,10 @@[m
+[31m-import { PageNotFound } from "@/components";[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-export default function not_found(){[m
+[31m-[m
+[31m-  return ([m
+[31m-    <PageNotFound/>[m
+[31m-  )[m
+[31m-}[m
+[32m+[m[32mimport { PageNotFound } from "@/components";[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mexport default function not_found(){[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m  return ([m[41m[m
+[32m+[m[32m    <PageNotFound/>[m[41m[m
+[32m+[m[32m  )[m[41m[m
+[32m+[m[32m}[m[41m[m
+[1mdiff --git a/app/(shop)/layout.tsx b/app/(shop)/layout.tsx[m
+[1mindex 6650d07..01e431a 100644[m
+[1m--- a/app/(shop)/layout.tsx[m
+[1m+++ b/app/(shop)/layout.tsx[m
+[36m@@ -1,17 +1,17 @@[m
+[31m-import { Sidebar, TopMenu } from "@/components";[m
+[31m-[m
+[31m-export default function shopLayout({ children }: {[m
+[31m-    children: React.ReactNode;[m
+[31m-}) {[m
+[31m-    return ([m
+[31m-        <main className="min-h-screen">[m
+[31m-            <TopMenu/>[m
+[31m-            <Sidebar/>[m
+[31m-            <div className='px-0 sm:px-7'>[m
+[31m-                {children}[m
+[31m-[m
+[31m-            </div>[m
+[31m-        </main>[m
+[31m-    );[m
+[31m-}[m
+[31m-[m
+[32m+[m[32mimport { Sidebar, TopMenu } from "@/components";[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mexport default function shopLayout({ children }: {[m[41m[m
+[32m+[m[32m    children: React.ReactNode;[m[41m[m
+[32m+[m[32m}) {[m[41m[m
+[32m+[m[32m    return ([m[41m[m
+[32m+[m[32m        <main className="min-h-screen">[m[41m[m
+[32m+[m[32m            <TopMenu/>[m[41m[m
+[32m+[m[32m            <Sidebar/>[m[41m[m
+[32m+[m[32m            <div className='px-0 sm:px-7'>[m[41m[m
+[32m+[m[32m                {children}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m            </div>[m[41m[m
+[32m+[m[32m        </main>[m[41m[m
+[32m+[m[32m    );[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[1mdiff --git a/app/auth/layout.tsx b/app/auth/layout.tsx[m
+[1mindex e1c6685..bfcce42 100644[m
+[1m--- a/app/auth/layout.tsx[m
+[1m+++ b/app/auth/layout.tsx[m
+[36m@@ -1,10 +1,10 @@[m
+[31m-export default function shopLayout({ children }: {[m
+[31m-    children: React.ReactNode;[m
+[31m-}) {[m
+[31m-    return ([m
+[31m-        <main className="min-h-screen bg-gray-500">[m
+[31m-            {children}[m
+[31m-        </main>[m
+[31m-    );[m
+[31m-}[m
+[31m-[m
+[32m+[m[32mexport default function shopLayout({ children }: {[m[41m[m
+[32m+[m[32m    children: React.ReactNode;[m[41m[m
+[32m+[m[32m}) {[m[41m[m
+[32m+[m[32m    return ([m[41m[m
+[32m+[m[32m        <main className="min-h-screen bg-gray-500">[m[41m[m
+[32m+[m[32m            {children}[m[41m[m
+[32m+[m[32m        </main>[m[41m[m
+[32m+[m[32m    );[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[1mdiff --git a/clsx-2.1.1.tgz b/clsx-2.1.1.tgz[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9eb96ba[m
+Binary files /dev/null and b/clsx-2.1.1.tgz differ
+[1mdiff --git a/components/index.ts b/components/index.ts[m
+[1mindex bfd491a..de351d2 100644[m
+[1m--- a/components/index.ts[m
+[1m+++ b/components/index.ts[m
+[36m@@ -1,7 +1,7 @@[m
+[31m-[m
+[31m-export * from './products/product-grid/ProductGrid';[m
+[31m-export * from './products/product-grid/ProductGridItem';[m
+[31m-export * from './ui/not-found/PageNotFound';[m
+[31m-export * from './ui/sidebar/Sidebar';[m
+[31m-export * from './ui/title/Title';[m
+[32m+[m[41m[m
+[32m+[m[32mexport * from './products/product-grid/ProductGrid';[m[41m[m
+[32m+[m[32mexport * from './products/product-grid/ProductGridItem';[m[41m[m
+[32m+[m[32mexport * from './ui/not-found/PageNotFound';[m[41m[m
+[32m+[m[32mexport * from './ui/sidebar/Sidebar';[m[41m[m
+[32m+[m[32mexport * from './ui/title/Title';[m[41m[m
+ export * from './ui/top-Menu/TopMenu';[m
+\ No newline at end of file[m
+[1mdiff --git a/components/products/product-grid/ProductGrid.tsx b/components/products/product-grid/ProductGrid.tsx[m
+[1mindex af1d28b..1109271 100644[m
+[1m--- a/components/products/product-grid/ProductGrid.tsx[m
+[1m+++ b/components/products/product-grid/ProductGrid.tsx[m
+[36m@@ -1,22 +1,22 @@[m
+[31m-import { Product } from "@/interfaces";[m
+[31m-import { ProductGridItem } from "./ProductGridItem";[m
+[31m-[m
+[31m-interface Props{[m
+[31m-    products: Product[];[m
+[31m-}[m
+[31m-[m
+[31m-export const ProductGrid = ({products}:Props) => {[m
+[31m-[m
+[31m-  return ([m
+[31m-    <div className='grid grid-cols-2 sm:grid-cols-3 gap-10 mb-10'>[m
+[31m-        {[m
+[31m-            products.map( product =>([m
+[31m-                <ProductGridItem [m
+[31m-                    key= { product.slug }[m
+[31m-                    product={product}[m
+[31m-                />[m
+[31m-            ))[m
+[31m-        }[m
+[31m-    </div>[m
+[31m-  )[m
+[31m-}[m
+[32m+[m[32mimport { Product } from "@/interfaces";[m[41m[m
+[32m+[m[32mimport { ProductGridItem } from "./ProductGridItem";[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32minterface Props{[m[41m[m
+[32m+[m[32m    products: Product[];[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mexport const ProductGrid = ({products}:Props) => {[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m  return ([m[41m[m
+[32m+[m[32m    <div className='grid grid-cols-2 sm:grid-cols-3 gap-10 mb-10'>[m[41m[m
+[32m+[m[32m        {[m[41m[m
+[32m+[m[32m            products.map( product =>([m[41m[m
+[32m+[m[32m                <ProductGridItem[m[41m [m
+[32m+[m[32m                    key= { product.slug }[m[41m[m
+[32m+[m[32m                    product={product}[m[41m[m
+[32m+[m[32m                />[m[41m[m
+[32m+[m[32m            ))[m[41m[m
+[32m+[m[32m        }[m[41m[m
+[32m+[m[32m    </div>[m[41m[m
+[32m+[m[32m  )[m[41m[m
+[32m+[m[32m}[m[41m[m
+[1mdiff --git a/components/products/product-grid/ProductGridItem.tsx b/components/products/product-grid/ProductGridItem.tsx[m
+[1mindex cf56b92..bfb49a4 100644[m
+[1m--- a/components/products/product-grid/ProductGridItem.tsx[m
+[1m+++ b/components/products/product-grid/ProductGridItem.tsx[m
+[36m@@ -1,38 +1,38 @@[m
+[31m-'use client'[m
+[31m-[m
+[31m-import { Product } from "@/interfaces";[m
+[31m-import Image from "next/image";[m
+[31m-import Link from "next/link";[m
+[31m-import { useState } from "react";[m
+[31m-[m
+[31m-interface Props {[m
+[31m-  product: Product;[m
+[31m-}[m
+[31m-[m
+[31m-export const ProductGridItem = ({ product }: Props) => {[m
+[31m-    const [displayImage,setDisplayImage] = useState( product.images[0] )[m
+[31m-[m
+[31m-  return ([m
+[31m-    <div className="rounded-md overflow-hidden fade-in">[m
+[31m-      <Link href={`/product/${product.slug}`}>[m
+[31m-        <Image[m
+[31m-          src={`/products/${displayImage}`}[m
+[31m-          alt={product.title}[m
+[31m-          className="w-full object-cover rounded"[m
+[31m-          width={500}[m
+[31m-          height={500}[m
+[31m-          onMouseEnter={()=>setDisplayImage(product.images[1])}[m
+[31m-          onMouseLeave={()=>setDisplayImage(product.images[0])}[m
+[31m-        />[m
+[31m-      </Link>[m
+[31m-      <div className="p-4 flex flex-col">[m
+[31m-        <Link[m
+[31m-            className="hover:text-blue-600" [m
+[31m-            href={`/product/${product.slug}`}>[m
+[31m-                {product.title}[m
+[31m-        </Link>[m
+[31m-        <span className="font-bold"> ${product.price}</span>[m
+[31m-      </div>[m
+[31m-    </div>[m
+[31m-  );[m
+[31m-};[m
+[32m+[m[32m'use client'[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mimport { Product } from "@/interfaces";[m[41m[m
+[32m+[m[32mimport Image from "next/image";[m[41m[m
+[32m+[m[32mimport Link from "next/link";[m[41m[m
+[32m+[m[32mimport { useState } from "react";[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32minterface Props {[m[41m[m
+[32m+[m[32m  product: Product;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mexport const ProductGridItem = ({ product }: Props) => {[m[41m[m
+[32m+[m[32m    const [displayImage,setDisplayImage] = useState( product.images[0] )[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m  return ([m[41m[m
+[32m+[m[32m    <div className="rounded-md overflow-hidden fade-in">[m[41m[m
+[32m+[m[32m      <Link href={`/product/${product.slug}`}>[m[41m[m
+[32m+[m[32m        <Image[m[41m[m
+[32m+[m[32m          src={`/products/${displayImage}`}[m[41m[m
+[32m+[m[32m          alt={product.title}[m[41m[m
+[32m+[m[32m          className="w-full object-cover rounded"[m[41m[m
+[32m+[m[32m          width={500}[m[41m[m
+[32m+[m[32m          height={500}[m[41m[m
+[32m+[m[32m          onMouseEnter={()=>setDisplayImage(product.images[1])}[m[41m[m
+[32m+[m[32m          onMouseLeave={()=>setDisplayImage(product.images[0])}[m[41m[m
+[32m+[m[32m        />[m[41m[m
+[32m+[m[32m      </Link>[m[41m[m
+[32m+[m[32m      <div className="p-4 flex flex-col">[m[41m[m
+[32m+[m[32m        <Link[m[41m[m
+[32m+[m[32m            className="hover:text-blue-600"[m[41m [m
+[32m+[m[32m            href={`/product/${product.slug}`}>[m[41m[m
+[32m+[m[32m                {product.title}[m[41m[m
+[32m+[m[32m        </Link>[m[41m[m
+[32m+[m[32m        <span className="font-bold"> ${product.price}</span>[m[41m[m
+[32m+[m[32m      </div>[m[41m[m
+[32m+[m[32m    </div>[m[41m[m
+[32m+[m[32m  );[m[41m[m
+[32m+[m[32m};[m[41m[m
+[1mdiff --git a/components/ui/not-found/PageNotFound.tsx b/components/ui/not-found/PageNotFound.tsx[m
+[1mindex 5e4014f..fdacdce 100644[m
+[1m--- a/components/ui/not-found/PageNotFound.tsx[m
+[1m+++ b/components/ui/not-found/PageNotFound.tsx[m
+[36m@@ -1,33 +1,33 @@[m
+[31m-import { titleFont } from '@/config/fonts'[m
+[31m-import Image from 'next/image'[m
+[31m-import Link from 'next/link'[m
+[31m-import React from 'react'[m
+[31m-[m
+[31m-export const PageNotFound = () => {[m
+[31m-  return ([m
+[31m-    <div className='flex flex-col-reverse md:flex-row h-[800] w-full justify-center items-center align-middle'>[m
+[31m-        <div className='text-center px-5 mx-5'>[m
+[31m-            <h2 className={`${titleFont.className} antialiased text-9xl`}>404</h2>[m
+[31m-            <p className='font-semibold text-xl'>Whoops! Lo sentimos mucho.</p>[m
+[31m-            <p className='font-light'>[m
+[31m-                <span>Puedes regresar al </span>[m
+[31m-                <Link[m
+[31m-                 href='/'[m
+[31m-                 className='font-normal hover:underline transition-all'[m
+[31m-                 >[m
+[31m-                    inicio[m
+[31m-                 </Link>[m
+[31m-            </p>[m
+[31m-        </div>[m
+[31m-        <div className='px-5 mx-5'>[m
+[31m-            <Image[m
+[31m-                src='/imgs/starman_750x750.png'[m
+[31m-                alt='Starman'[m
+[31m-                className='p-5 sm:p-0'[m
+[31m-                width={550}[m
+[31m-                height={550}[m
+[31m-            />[m
+[31m-        </div>[m
+[31m-    </div>[m
+[31m-  )[m
+[31m-}[m
+[32m+[m[32mimport { titleFont } from '@/config/fonts'[m[41m[m
+[32m+[m[32mimport Image from 'next/image'[m[41m[m
+[32m+[m[32mimport Link from 'next/link'[m[41m[m
+[32m+[m[32mimport React from 'react'[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mexport const PageNotFound = () => {[m[41m[m
+[32m+[m[32m  return ([m[41m[m
+[32m+[m[32m    <div className='flex flex-col-reverse md:flex-row h-[800] w-full justify-center items-center align-middle'>[m[41m[m
+[32m+[m[32m        <div className='text-center px-5 mx-5'>[m[41m[m
+[32m+[m[32m            <h2 className={`${titleFont.className} antialiased text-9xl`}>404</h2>[m[41m[m
+[32m+[m[32m            <p className='font-semibold text-xl'>Whoops! Lo sentimos mucho.</p>[m[41m[m
+[32m+[m[32m            <p className='font-light'>[m[41m[m
+[32m+[m[32m                <span>Puedes regresar al </span>[m[41m[m
+[32m+[m[32m                <Link[m[41m[m
+[32m+[m[32m                 href='/'[m[41m[m
+[32m+[m[32m                 className='font-normal hover:underline transition-all'[m[41m[m
+[32m+[m[32m                 >[m[41m[m
+[32m+[m[32m                    inicio[m[41m[m
+[32m+[m[32m                 </Link>[m[41m[m
+[32m+[m[32m            </p>[m[41m[m
+[32m+[m[32m        </div>[m[41m[m
+[32m+[m[32m        <div className='px-5 mx-5'>[m[41m[m
+[32m+[m[32m            <Image[m[41m[m
+[32m+[m[32m                src='/imgs/starman_750x750.png'[m[41m[m
+[32m+[m[32m                alt='Starman'[m[41m[m
+[32m+[m[32m                className='p-5 sm:p-0'[m[41m[m
+[32m+[m[32m                width={550}[m[41m[m
+[32m+[m[32m                height={550}[m[41m[m
+[32m+[m[32m            />[m[41m[m
+[32m+[m[32m        </div>[m[41m[m
+[32m+[m[32m    </div>[m[41m[m
+[32m+[m[32m  )[m[41m[m
+[32m+[m[32m}[m[41m[m
+[1mdiff --git a/components/ui/sidebar/Sidebar.tsx b/components/ui/sidebar/Sidebar.tsx[m
+[1mindex fa081c0..a7c84da 100644[m
+[1m--- a/components/ui/sidebar/Sidebar.tsx[m
+[1m+++ b/components/ui/sidebar/Sidebar.tsx[m
+[36m@@ -1,95 +1,95 @@[m
+[31m-"use client";[m
+[31m-import Link from "next/link";[m
+[31m-[m
+[31m-import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from "react-icons/io5";[m
+[31m-// todo: convertir esto en un comonente as eficiente con un mapa y n enum[m
+[31m-export const Sidebar = () => {[m
+[31m-  return ([m
+[31m-    <div>[m
+[31m-      {/* Blackground black */}[m
+[31m-      <div className="fixed top-0 left-0 w-screen h-screen z-10 bg-black opacity-30" />[m
+[31m-[m
+[31m-      {/* Blue */}[m
+[31m-      <div className="fade-in fixed top-0 left-0 w-screen h-screen z-10 backdrop-filter backdrop-blur-sm" />[m
+[31m-      {/* SideMenu */}[m
+[31m-[m
+[31m-      <nav[m
+[31m-        // todo:efecto de slide[m
+[31m-        className="fixed p-5 right-0 top-0 w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300"[m
+[31m-      >[m
+[31m-        <IoCloseOutline[m
+[31m-          size={50}[m
+[31m-          className="absolute top-5 cursor-pointer"[m
+[31m-          onClick={() => console.log("click")}[m
+[31m-        />[m
+[31m-        {/* Input */}[m
+[31m-        <div className="relative mt-14">[m
+[31m-          <IoSearchOutline size={20} className="absolute top-2 left-2" />[m
+[31m-          <input[m
+[31m-            type="text"[m
+[31m-            placeholder="Buscar"[m
+[31m-            className="w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500"[m
+[31m-          />[m
+[31m-        </div>[m
+[31m-        <Link[m
+[31m-          href='/'[m
+[31m-          className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all">[m
+[31m-[m
+[31m-          <IoPersonOutline size={30}/>[m
+[31m-          <span className="ml-3 text-xl">Perfil</span>[m
+[31m-        </Link>[m
+[31m-[m
+[31m-        <Link[m
+[31m-          href='/'[m
+[31m-          className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all">[m
+[31m-            [m
+[31m-          <IoTicketOutline size={30}/>[m
+[31m-          <span className="ml-3 text-xl">Ordenes</span>[m
+[31m-        </Link>[m
+[31m-[m
+[31m-        <Link[m
+[31m-          href='/'[m
+[31m-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m
+[31m-            [m
+[31m-          <IoLogInOutline size={30}/>[m
+[31m-          <span className="ml-3 text-xl">Ingresar</span>[m
+[31m-        </Link>[m
+[31m-[m
+[31m-        <Link[m
+[31m-          href='/'[m
+[31m-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m
+[31m-            [m
+[31m-          <IoLogOutOutline size={30}/>[m
+[31m-          <span className="ml-3 text-xl">Salir</span>[m
+[31m-        </Link>[m
+[31m-[m
+[31m-        {/* Line separetor */}[m
+[31m-        [m
+[31m-        <div className="w-full h-px bg-gray-200 my-10"/>[m
+[31m-[m
+[31m-        <Link[m
+[31m-          href='/'[m
+[31m-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m
+[31m-            [m
+[31m-          <IoShirtOutline size={30}/>[m
+[31m-          <span className="ml-3 text-xl">Productos</span>[m
+[31m-        </Link>[m
+[31m-[m
+[31m-        <Link[m
+[31m-          href='/'[m
+[31m-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m
+[31m-            [m
+[31m-          <IoTicketOutline size={30}/>[m
+[31m-          <span className="ml-3 text-xl">Ordenes</span>[m
+[31m-        </Link>[m
+[31m-        <Link[m
+[31m-          href='/'[m
+[31m-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m
+[31m-            [m
+[31m-          <IoPeopleOutline size={30}/>[m
+[31m-          <span className="ml-3 text-xl">Usuarios</span>[m
+[31m-        </Link>[m
+[31m-      </nav>[m
+[31m-    </div>[m
+[31m-  );[m
+[31m-};[m
+[32m+[m[32m"use client";[m[41m[m
+[32m+[m[32mimport Link from "next/link";[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mimport { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from "react-icons/io5";[m[41m[m
+[32m+[m[32m// todo: convertir esto en un comonente as eficiente con un mapa y n enum[m[41m[m
+[32m+[m[32mexport const Sidebar = () => {[m[41m[m
+[32m+[m[32m  return ([m[41m[m
+[32m+[m[32m    <div>[m[41m[m
+[32m+[m[32m      {/* Blackground black */}[m[41m[m
+[32m+[m[32m      <div className="fixed top-0 left-0 w-screen h-screen z-10 bg-black opacity-30" />[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m      {/* Blue */}[m[41m[m
+[32m+[m[32m      <div className="fade-in fixed top-0 left-0 w-screen h-screen z-10 backdrop-filter backdrop-blur-sm" />[m[41m[m
+[32m+[m[32m      {/* SideMenu */}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m      <nav[m[41m[m
+[32m+[m[32m        // todo:efecto de slide[m[41m[m
+[32m+[m[32m        className="fixed p-5 right-0 top-0 w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300"[m[41m[m
+[32m+[m[32m      >[m[41m[m
+[32m+[m[32m        <IoCloseOutline[m[41m[m
+[32m+[m[32m          size={50}[m[41m[m
+[32m+[m[32m          className="absolute top-5 cursor-pointer"[m[41m[m
+[32m+[m[32m          onClick={() => console.log("click")}[m[41m[m
+[32m+[m[32m        />[m[41m[m
+[32m+[m[32m        {/* Input */}[m[41m[m
+[32m+[m[32m        <div className="relative mt-14">[m[41m[m
+[32m+[m[32m          <IoSearchOutline size={20} className="absolute top-2 left-2" />[m[41m[m
+[32m+[m[32m          <input[m[41m[m
+[32m+[m[32m            type="text"[m[41m[m
+[32m+[m[32m            placeholder="Buscar"[m[41m[m
+[32m+[m[32m            className="w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500"[m[41m[m
+[32m+[m[32m          />[m[41m[m
+[32m+[m[32m        </div>[m[41m[m
+[32m+[m[32m        <Link[m[41m[m
+[32m+[m[32m          href='/'[m[41m[m
+[32m+[m[32m          className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all">[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m          <IoPersonOutline size={30}/>[m[41m[m
+[32m+[m[32m          <span className="ml-3 text-xl">Perfil</span>[m[41m[m
+[32m+[m[32m        </Link>[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m        <Link[m[41m[m
+[32m+[m[32m          href='/'[m[41m[m
+[32m+[m[32m          className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all">[m[41m[m
+[32m+[m[41m            [m
+[32m+[m[32m          <IoTicketOutline size={30}/>[m[41m[m
+[32m+[m[32m          <span className="ml-3 text-xl">Ordenes</span>[m[41m[m
+[32m+[m[32m        </Link>[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m        <Link[m[41m[m
+[32m+[m[32m          href='/'[m[41m[m
+[32m+[m[32m          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m[41m[m
+[32m+[m[41m            [m
+[32m+[m[32m          <IoLogInOutline size={30}/>[m[41m[m
+[32m+[m[32m          <span className="ml-3 text-xl">Ingresar</span>[m[41m[m
+[32m+[m[32m        </Link>[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m        <Link[m[41m[m
+[32m+[m[32m          href='/'[m[41m[m
+[32m+[m[32m          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m[41m[m
+[32m+[m[41m            [m
+[32m+[m[32m          <IoLogOutOutline size={30}/>[m[41m[m
+[32m+[m[32m          <span className="ml-3 text-xl">Salir</span>[m[41m[m
+[32m+[m[32m        </Link>[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m        {/* Line separetor */}[m[41m[m
+[32m+[m[41m        [m
+[32m+[m[32m        <div className="w-full h-px bg-gray-200 my-10"/>[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m        <Link[m[41m[m
+[32m+[m[32m          href='/'[m[41m[m
+[32m+[m[32m          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m[41m[m
+[32m+[m[41m            [m
+[32m+[m[32m          <IoShirtOutline size={30}/>[m[41m[m
+[32m+[m[32m          <span className="ml-3 text-xl">Productos</span>[m[41m[m
+[32m+[m[32m        </Link>[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m        <Link[m[41m[m
+[32m+[m[32m          href='/'[m[41m[m
+[32m+[m[32m          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m[41m[m
+[32m+[m[41m            [m
+[32m+[m[32m          <IoTicketOutline size={30}/>[m[41m[m
+[32m+[m[32m          <span className="ml-3 text-xl">Ordenes</span>[m[41m[m
+[32m+[m[32m        </Link>[m[41m[m
+[32m+[m[32m        <Link[m[41m[m
+[32m+[m[32m          href='/'[m[41m[m
+[32m+[m[32m          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all">[m[41m[m
+[32m+[m[41m            [m
+[32m+[m[32m          <IoPeopleOutline size={30}/>[m[41m[m
+[32m+[m[32m          <span className="ml-3 text-xl">Usuarios</span>[m[41m[m
+[32m+[m[32m        </Link>[m[41m[m
+[32m+[m[32m      </nav>[m[41m[m
+[32m+[m[32m    </div>[m[41m[m
+[32m+[m[32m  );[m[41m[m
+[32m+[m[32m};[m[41m[m
+[1mdiff --git a/components/ui/title/Title.tsx b/components/ui/title/Title.tsx[m
+[1mindex d06a129..b9b6744 100644[m
+[1m--- a/components/ui/title/Title.tsx[m
+[1m+++ b/components/ui/title/Title.tsx[m
+[36m@@ -1,23 +1,23 @@[m
+[31m-import { titleFont } from "@/config/fonts";[m
+[31m-[m
+[31m-interface Props {[m
+[31m-  title:string;[m
+[31m-  subtitle?:string;[m
+[31m-  className?:string;[m
+[31m-}[m
+[31m-export const Title = ({ title,className,subtitle }: Props) => {[m
+[31m-[m
+[31m-[m
+[31m-  return ([m
+[31m-    <div className={`mt-3  ${className}`}>[m
+[31m-      <h1 className={`${ titleFont.className } antialiased text-4xl font-semibold my-10`}>[m
+[31m-        {title}[m
+[31m-      </h1>[m
+[31m-      {[m
+[31m-        subtitle && ([m
+[31m-          <h3 className='text-xl mb-5'>{ subtitle }</h3>[m
+[31m-        )[m
+[31m-      }[m
+[31m-    </div>[m
+[31m-  )[m
+[31m-}[m
+[32m+[m[32mimport { titleFont } from "@/config/fonts";[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32minterface Props {[m[41m[m
+[32m+[m[32m  title:string;[m[41m[m
+[32m+[m[32m  subtitle?:string;[m[41m[m
+[32m+[m[32m  className?:string;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[32mexport const Title = ({ title,className,subtitle }: Props) => {[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m  return ([m[41m[m
+[32m+[m[32m    <div className={`mt-3  ${className}`}>[m[41m[m
+[32m+[m[32m      <h1 className={`${ titleFont.className } antialiased text-4xl font-semibold my-10`}>[m[41m[m
+[32m+[m[32m        {title}[m[41m[m
+[32m+[m[32m      </h1>[m[41m[m
+[32m+[m[32m      {[m[41m[m
+[32m+[m[32m        subtitle && ([m[41m[m
+[32m+[m[32m          <h3 className='text-xl mb-5'>{ subtitle }</h3>[m[41m[m
+[32m+[m[32m        )[m[41m[m
+[32m+[m[32m      }[m[41m[m
+[32m+[m[32m    </div>[m[41m[m
+[32m+[m[32m  )[m[41m[m
+[32m+[m[32m}[m[41m[m
+[1mdiff --git a/components/ui/top-Menu/TopMenu.tsx b/components/ui/top-Menu/TopMenu.tsx[m
+[1mindex 996728e..f103bc0 100644[m
+[1m--- a/components/ui/top-Menu/TopMenu.tsx[m
+[1m+++ b/components/ui/top-Menu/TopMenu.tsx[m
+[36m@@ -1,46 +1,46 @@[m
+[31m-import { titleFont } from '@/config/fonts'[m
+[31m-import Link from 'next/link'[m
+[31m-import { IoCartOutline, IoSearch, IoSearchOutline } from 'react-icons/io5'[m
+[31m-[m
+[31m-[m
+[31m-export const TopMenu = () => {[m
+[31m-    [m
+[31m-  return ([m
+[31m-    <nav className='flex px-5 justify-between item-center w-full'>[m
+[31m-        {/* Logo */}[m
+[31m-        <div>[m
+[31m-            <Link[m
+[31m-             href="/">[m
+[31m-                <span className={`${titleFont.className} antialiased font-bold`}>Teslo</span>[m
+[31m-                <span> | Shop</span>[m
+[31m-            </Link>[m
+[31m-        </div>[m
+[31m-        {/* Center Menu */}[m
+[31m-        <div className='hidden sm:block'>[m
+[31m-            <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href='/category/men'>Hombres</Link>[m
+[31m-            <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href='/category/women'>Mujeres</Link>[m
+[31m-            <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href='/category/kids'>Niños</Link>[m
+[31m-        </div>[m
+[31m-[m
+[31m-        {/* Search,Cart,Menu */}[m
+[31m-[m
+[31m-        <div className='flex items-center'>[m
+[31m-            <Link href='/search' classNam
