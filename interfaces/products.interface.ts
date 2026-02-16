@@ -9,9 +9,9 @@ export interface Product {
     tags: string[];
     title: string;
     type: Type;
-    gender: Category;
+    gender: Categories;
 }
 
-export type Category = 'men'|'women'|'kid'|'unisex';
-export type Size = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
-export type Type = 'shirts'|'pants'|'hoodies'|'hats';
+export type Categories = 'men' | 'women' | 'kid' | 'unisex';
+export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+export type Type = 'shirts' | 'pants' | 'hoodies' | 'hats';

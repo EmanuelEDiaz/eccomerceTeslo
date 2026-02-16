@@ -1,5 +1,5 @@
 import { ProductGrid, Title } from "@/components";
-import { Category } from "@/interfaces";
+import { Categories } from "@/interfaces";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
@@ -8,16 +8,16 @@ const seedProducts = initialData.products;
 export default async function Category({
   params,
 }: {
-  params: Promise<{ id: Category }>;
+  params: Promise<{ id: Categories }>;
 }) {
   const { id } = await params;
-  
+
   const products = seedProducts.filter((product) => product.gender === id);
-  const labels : Record<Category,string> = {
-    'men':'Hombres',
-    'women':'Mujeres',
-    'kid':'Niños',
-    'unisex':'Todos',
+  const labels: Record<Categories, string> = {
+    'men': 'Hombres',
+    'women': 'Mujeres',
+    'kid': 'Niños',
+    'unisex': 'Todos',
   }
 
 
@@ -25,16 +25,16 @@ export default async function Category({
     notFound();
   }
 
-  return ( 
+  return (
     <>
       <Title
-       title={`Articulos de ${labels[id]}`} 
-       subtitle="Todos los productos" 
-       className="mb-2" />
+        title={`Articulos de ${labels[id]}`}
+        subtitle="Todos los productos"
+        className="mb-2" />
 
 
-      <ProductGrid 
-       products={products} />
+      <ProductGrid
+        products={products} />
     </>
   );
 }
