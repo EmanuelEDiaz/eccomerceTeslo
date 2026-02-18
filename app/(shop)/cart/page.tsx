@@ -20,7 +20,7 @@ export default function Cart() {
             <span className="text-xl">Agregar más items</span>
 
             <Link href="/" className="underline mb-5">
-              Continúa comprobando
+              Continúa comprando
             </Link>
 
             {/* Item */}
