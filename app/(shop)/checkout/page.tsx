@@ -31,8 +31,8 @@ export default function Checkout() {
                   width={100}
                   height={100}
                   style={{
-                    width:'100px',
-                    height:'100px'
+                    width: "100px",
+                    height: "100px",
                   }}
                   alt={product.title}
                   className="mr-5 rounded"
@@ -59,38 +59,46 @@ export default function Checkout() {
               <p>Ciudad de Mexico</p>
               <p>CP 123123</p>
               <p>123.123.123</p>
-
             </div>
             {/* Divider */}
-            <div
-              className="w-full h-0.5 rounded bg-gray-200 mb-10"
-            />
-
+            <div className="w-full h-0.5 rounded bg-gray-200 mb-10" />
 
             <h2 className="text-2xl mb-2">Resumen de orden</h2>
             <div className="grid grid-cols-2">
               <span>No. Productos</span>
               <span className="text-right">3 articulos</span>
-              
+
               <span>Subtotal</span>
               <span className="text-right">$ 100</span>
-              
+
               <span>Impuestos (15%)</span>
               <span className="text-right">$ 100</span>
-              
+
               <span className="mt-5 text-2xl">Total (15%)</span>
               <span className="mt-5 text-2xl text-right">$ 100</span>
-
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              <Link 
-              className="flex btn-primary justify-center"
-              href="/orders/123">
+              <p className="mb-5">
+                {/* Disclaimer */}
+                <span className="text-xs">
+                  Al hacer clic en "Colocar orden", aceptas nuestros{" "}
+                  <a href="#" className="underline">
+                    términos y condiciones
+                  </a>{" "}
+                  y{" "}
+                  <a href="#" className="underline">
+                    política de privacidad
+                  </a>
+                </span>
+              </p>
+              <Link
+                className="flex btn-primary justify-center"
+                href="/orders/123"
+              >
                 Colocar orden
               </Link>
             </div>
-
           </div>
         </div>
       </div>
