@@ -6,7 +6,9 @@ import { SidebarItem } from "./SidebarItem";
 import { sideData } from "@/data/SidebarDataUser";
 import { sideDataOptions } from "@/data/SidebarDataOption";
 import { useUIStore } from "@/store";
+import { useRouter } from "next/navigation";
 import clsx from "clsx";
+import { useState } from "react";
 
 const userSidebarItems = sideData.dates;
 const sidebarItems = sideDataOptions.dates;
@@ -15,6 +17,16 @@ const sidebarItems = sideDataOptions.dates;
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
+  const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const onSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchTerm.trim().length === 0) return;
+    router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+    setSearchTerm("");
+    closeMenu();
+  };
 
   return (
     <div>
@@ -48,14 +60,16 @@ export const Sidebar = () => {
           onClick={ () => closeMenu() }
         />
         {/* Input */}
-        <div className="relative mt-14">
+        <form onSubmit={onSearchSubmit} className="relative mt-14">
           <IoSearchOutline size={20} className="absolute top-2 left-2" />
           <input
             type="text"
             placeholder="Buscar"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500"
           />
-        </div>
+        </form>
 
         {userSidebarItems.map((item) => (
           <SidebarItem key={item.name} dataUser={item} />
