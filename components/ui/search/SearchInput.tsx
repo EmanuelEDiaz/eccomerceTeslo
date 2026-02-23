@@ -1,7 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useDebounceSearch } from "@/hooks/useDebounceSearch";
 import { IoSearchOutline } from "react-icons/io5";
 
 interface Props {
@@ -9,14 +8,9 @@ interface Props {
 }
 
 export const SearchInput = ({ initialQuery = "" }: Props) => {
-  const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState(initialQuery);
-
-  const onSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchTerm.trim().length === 0) return;
-    router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
-  };
+  const { searchTerm, setSearchTerm, onSearchSubmit } = useDebounceSearch({
+    initialQuery,
+  });
 
   return (
     <form onSubmit={onSearchSubmit} className="relative mb-10">

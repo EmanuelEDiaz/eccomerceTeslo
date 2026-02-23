@@ -6,27 +6,24 @@ import { SidebarItem } from "./SidebarItem";
 import { sideData } from "@/data/SidebarDataUser";
 import { sideDataOptions } from "@/data/SidebarDataOption";
 import { useUIStore } from "@/store";
-import { useRouter } from "next/navigation";
+import { useDebounceSearch } from "@/hooks/useDebounceSearch";
+
 import clsx from "clsx";
-import { useState } from "react";
 
 const userSidebarItems = sideData.dates;
 const sidebarItems = sideDataOptions.dates;
 
-// todo: convertir esto en un componente mas eficiente con un mapa y un enum
+
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
-  const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
 
-  const onSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchTerm.trim().length === 0) return;
-    router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
-    setSearchTerm("");
-    closeMenu();
-  };
+  const { searchTerm, setSearchTerm, onSearchSubmit } = useDebounceSearch({
+    onAfterSearch: () => {
+      setSearchTerm("");
+      closeMenu();
+    },
+  });
 
   return (
     <div>
@@ -39,13 +36,13 @@ export const Sidebar = () => {
       {/* Blur */}
       {isSideMenuOpen && (
         <div
-        onClick={closeMenu} 
+        onClick={closeMenu}
         className="fade-in fixed top-0 left-0 w-screen h-screen z-10 backdrop-filter backdrop-blur-sm" />
       )}
       {/* SideMenu */}
 
       <nav
-        
+
         className={
           clsx(
             "fixed p-5 right-0 top-0 w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300",
