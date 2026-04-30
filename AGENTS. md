@@ -1,0 +1,398 @@
+# AGENTS.md - Agent Coding Guidelines
+
+This document provides context for AI agents operating in this Next.js e-commerce codebase (Teslo | Shop).
+
+---
+
+## Project Overview
+
+- **Framework**: Next.js 16.1.6 with React 19.2.3
+- **Language**: TypeScript 5 (strict mode enabled)
+- **Styling**: Tailwind CSS v4 + PostCSS
+- **State Management**: Zustand
+- **Linting**: ESLint v9 + eslint-config-next
+- **Icons**: react-icons (io5 package)
+- **Carousels**: Swiper
+
+---
+
+## Build / Lint / Test Commands
+
+```bash
+# Development
+npm run dev              # Start dev server at localhost:3000
+
+# Production
+npm run build          # Build for production
+npm run start          # Start production server
+
+# Linting (NO test command currently)
+npm run lint           # Run ESLint
+```
+
+**Single test**: No test framework is configured. If adding tests, use `vitest` or `jest` and run individual tests with:
+```bash
+npx vitest run src/path/to/test.spec.ts    # vitest
+npx jest src/path/to/test.spec.ts      # jest
+```
+
+---
+
+## Code Structure
+
+```
+/
+├── app/                    # Next.js App Router pages
+│   ├── layout.            tsx          # Root layout
+│   ├── globals.           css          # Global styles
+│   ├── auth/                          # Auth routes
+│   └── [category|product|search|cart]/ # Other routes
+├── components/
+│   ├── product/                       # Product-related (slideshow, size-selector)
+│   ├── products/                      # Product grid components
+│   └── ui/                            # Shared UI (TopMenu)
+├── config/
+│   └── fonts.             ts           # Font configuration (Inter, Montserrat_Alternates)
+├── interfaces/
+│   ├── products.interface.            ts   # Product, Size, Type, Categories types
+│   └── sidebar.interfaces.             ts   # Sidebar types
+├── store/
+│   ├── index.             ts           # Store barrel export
+│   └── ui/
+│       └── ui- store.    ts            # UI store (isSideMenuOpen, openSideMenu, closeSideMenu)
+├── hooks/
+│   └── useDebounceSearch.             ts
+├── seed/
+│   └── seed.            ts             # Product seed data
+└── data/
+    └── *.ts                          # Sidebar data
+```
+
+---
+
+## Path Aliases
+
+Use `@/*` to reference the project root:
+```typescript
+import { Product } from "@/interfaces";
+import { useUIStore } from "@/store";
+import { titleFont } from "@/config/fonts";
+```
+
+---
+
+## TypeScript Conventions
+
+- **Strict mode**: Enabled in tsconfig.json
+- **jsx**: `react-jsx` (Next.js default)
+- **moduleResolution**: `bundler`
+- **No implicit any** - Always type variables explicitly
+- **Export types** - Use `export type` for type-only exports when re-exporting
+
+```typescript
+// Good
+export interface Product {
+  description: string;
+  images: string[];
+  inStock: number;
+}
+
+// Re-export with type modifier
+export type Categories = 'men' | 'women' | 'kid' | 'unisex';
+export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+```
+
+---
+
+## Component Conventions
+
+### File Naming
+- PascalCase for component files: `ProductGridItem. tsx`, `TopMenu. tsx`
+- kebab-case for directories: `product-grid/`, `size-selector/`
+
+### Component Structure
+```typescript
+'use client'  // Required for client-side interactivity
+
+import type { Size } from "@/interfaces"
+import clsx from "clsx";
+
+interface Props {
+  selectedSize: Size;
+  availableSizes: Size[];
+}
+
+export const SizeSelector = ({ selectedSize, availableSizes }: Props) => {
+  return (
+    <div>
+      {/* ... */}
+    </div>
+  );
+};
+```
+
+### Export Style
+- **Named exports** only: `export const ComponentName`
+- **No default exports** for components
+
+### Props Interface
+- Define inline or as `Props` interface above the component
+- Use TypeScript types (not JSX types like `React.FC`)
+
+---
+
+## Styling Conventions (Tailwind CSS v4)
+
+### CSS Import
+```css
+@import "tailwindcss";
+```
+
+### Tailwind v4 Notes
+- Tailwind v4 uses `@import "tailwindcss"` instead of directives
+- Classes with `@apply` should be in separate CSS files
+- Use utility classes directly in JSX
+
+### Common Patterns
+```tsx
+// Responsive
+<div className="hidden sm:block">
+
+// Hover effects
+<button className="hover:underline transition-all">
+
+// Flexbox
+<div className="flex items-center justify-between">
+
+// Grid
+<div className="grid grid-cols-2 gap-4">
+
+// Spacing
+<div className="p-4 m-2 px-5">
+
+// Typography
+<span className="font-bold text-lg antialiased">
+
+// Colors
+<span className="text-blue-600 bg- gray-100">
+```
+
+### Custom CSS Classes
+Defined in `app/globals.css`:
+```css
+.fade-in { animation: fadeIn 0.5s ease both; }
+.btn-primary { background-color: #2563eb; color: white; padding: 0.5rem 1rem; }
+```
+
+---
+
+## State Management (Zustand)
+
+```typescript
+import { create } from "zustand"
+
+interface State {
+  isSideMenuOpen: boolean;
+  openSideMenu: () => void;
+  closeSideMenu: () => void;
+}
+
+export const useUIStore = create<State>()((set) => ({
+  isSideMenuOpen: false,
+  openSideMenu: () => set({ isSideMenuOpen: true }),
+  closeSideMenu: () => set({ isSideMenuOpen: false }),
+}));
+```
+
+### Using the Store
+```typescript
+import { useUIStore } from "@/store";
+
+// Selector pattern
+const isOpen = useUIStore((state) => state.isSideMenuOpen);
+```
+
+---
+
+## Import Conventions
+
+### Order (recommended)
+1. Node built-ins (none expected)
+2. External packages: `next`, `react`, `zustand`, `swiper`, `clsx`
+3. Internal aliases: `@/interfaces`, `@/store`, `@/config`
+4. Relative imports: `./components`, `../utils`
+5. CSS/SCSS: `import "./styles.css"`
+
+### Example
+```typescript
+'use client'
+
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { Product } from "@/interfaces";
+import { titleFont } from "@/config/fonts";
+import { useUIStore } from "@/store";
+
+import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
+import "swiper/css";
+
+import "./Component.css";
+```
+
+### No comment rule
+**DO NOT add comments** to code unless explicitly requested by the user.
+
+---
+
+## Next.js Specifics
+
+### Client Components
+Add `'use client'` at the top of files using:
+- `useState`, `useEffect`, other hooks
+- Browser APIs (window, document)
+- Event handlers (onClick, onChange)
+- Zustand store with selectors
+
+### Image Component
+```tsx
+<Image
+  src={`/products/${image}`}
+  alt={title}
+  width={500}
+  height={500}
+  className="w-full object-cover rounded"
+/>
+```
+
+### Link Component
+```tsx
+<Link href={`/product/${product.slug}`}>
+  {product.title}
+</Link>
+```
+
+---
+
+## Error Handling
+
+- Use try/catch with async operations
+- Provide fallback UI for error states
+- Log errors appropriately (avoid console.log in production)
+
+```typescript
+// Good
+try {
+  const data = await fetchData();
+} catch (error) {
+  console.error("Failed to fetch data:", error);
+  return <ErrorFallback />;
+}
+```
+
+---
+
+## Naming Conventions
+
+| Element | Convention | Example |
+|---------|-----------|---------|
+| Components | PascalCase | `ProductGridItem`, `TopMenu` |
+| Props interfaces | PascalCase | `Props`, `ProductGridItemProps` |
+| TypeScript types | PascalCase | `Product`, `Categories` |
+| Store variables | camelCase | `isSideMenuOpen`, `openSideMenu` |
+| CSS classes | kebab-case | `btn-primary`, `fade-in` |
+| Directories | kebab-case | `product-grid/`, `size-selector/` |
+| Files | PascalCase | `ProductGridItem. tsx` |
+
+---
+
+## ESLint Configuration
+
+ESLint is configured with `eslint- config- next` presets:
+- TypeScript support via `eslint-config-next/typescript`
+- Core web vitals rules
+
+Ignored directories:
+```
+.next/**, out/**, build/**, next-env.d.ts
+```
+
+---
+
+## Security Notes
+
+- **NO API keys or secrets** in code
+- **NO `console.log`** of sensitive data
+- Use environment variables for secrets
+- Validate all user input
+
+---
+
+## Performance Notes
+
+- Use `next/image` for optimized images
+- Lazy load components where appropriate
+- Avoid unnecessary re-renders (use Zustand selectors properly)
+- Images should be in `/public/products/`
+
+---
+
+## Common Patterns
+
+### Image Hover Swap
+```typescript
+const [displayImage, setDisplayImage] = useState(product.images[0]);
+
+<Image
+  onMouseEnter={() => setDisplayImage(product.images[1])}
+  onMouseLeave={() => setDisplayImage(product.images[0])}
+/>
+```
+
+### clsx for Conditional Classes
+```typescript
+className={clsx(
+  "text-lg",
+  { "underline": isSelected }
+)}
+```
+
+### Swiper Integration
+```typescript
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Thumbs } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+
+<Swiper modules={[Navigation, Autoplay]} autoplay={{ delay: 2500 }}>
+  {images.map((img) => (
+    <SwiperSlide key={img}>
+      <Image src={img} alt="" />
+    </SwiperSlide>
+  ))}
+</Swiper>
+```
+
+---
+
+## Before Writing Code
+
+1. Check existing components in `components/` for similar patterns
+2. Follow the established naming conventions
+3. Use `@/` path aliases
+4. Add `'use client'` if using hooks or browser APIs
+5. Run `npm run lint` after changes
+
+---
+
+## Additional Context
+
+- **Font usage**: `titleFont` (Montserrat_Alternates) for branding, `inter` for body text
+- **CSS variables**: Defined in `globals.css` (--primary, --foreground-rgb, etc.)
+- **Seed data**: Located in `seed/seed.ts` with ~50 product entries
+- **Product images**: Stored in `/public/products/`
+
+---
+
+_Last updated: 2026-04-30_
